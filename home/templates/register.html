@@ -1,0 +1,166 @@
+{% extends "nav.html" %}
+{% load static %}
+
+{% block head %}
+    <title>Register and Contact Us</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        .register {
+            background: black;
+            padding: 5% 0;
+        }
+        .register form{
+            margin-top: 3%;
+        }
+        .form-group{
+            width: 30%;
+        }
+        .heading{
+            text-align: center;
+            align-items: center;        
+        }
+        .back img{
+            width: 100%;
+        }
+        .heading h1{
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 4%;
+        }
+        @media only screen and (max-width: 450px){
+            .register iframe{
+                width: 100%;
+            }
+            .register{
+                padding: 5% 0;
+            }
+        }
+        .card:hover {
+            cursor: pointer;
+        }
+  </style>
+{% endblock head %}
+{% block main %}
+    <div class="heading">
+        <h1>Register</h1>
+    </div>
+    <div class="cont row">
+        
+        <div class="card-cont col-xs-8 col-md-4">
+            <h1 style="text-align: center;">Workshops</h1>
+            <div class="card">
+                <div class="front">
+                    <div class="img-cont" >
+                        <img src="{% static 'Cards/Workshops-02.svg' %}" class="img" alt="workshop">
+                    </div>
+                </div>
+                <div class="back">
+                    <img src="{% static 'Cards/Back.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="card-cont col-xs-8 col-md-4">
+            <h1 style="text-align: center;">Speed Mentoring</h1>
+            <div class="card">
+                <div class="front">
+                    <div class="img-cont">
+                        <img src="{% static 'Cards/Speed.svg' %}" class="img" alt="speed">
+                    </div>   
+                </div>
+                <div class="back">
+                    <img src="{% static 'Cards/Back.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="card-cont col-xs-8 col-md-4">
+            <h1 style="text-align: center;">Group Mentoring</h1>
+            <div class="card">
+                <div class="front">
+                    <div class="img-cont" >
+                        <img src="{% static 'Cards/gm m.png' %}" class="img" alt="gm" style="opacity: 0.85">
+                    </div>
+                </div>
+                <div class="back">
+                    <img src="{% static 'Cards/Back.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay register" id="workshop" style="align-content: center;">
+        <center>
+            <button class="btn fa fa-close" onclick="closeform('workshop')">Close</button>
+            <div>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeUOzcJiSi7k_G1NxEkq6Fk5aJHmfBSinf7TXAN2geX7o7A2w/viewform?embedded=true" width="80%" height="1388" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </center>
+    </div>
+    <div class="overlay register" id="speed" style="align-content: center;">
+        <center>
+            <button class="btn fa fa-close" onclick="closeform('speed')">Close</button>
+            <div>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeZ50v-QlzwHpoA2Rb-WpwULpp8TyUgtFJz0C-oerAJH8tsOA/viewform?embedded=true" width="80%" height="1646" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe></div>
+        </center>
+    </div>
+    <div class="overlay register" id="gm" style="align-content: center;">
+        <center>
+            <button class="btn fa fa-close" onclick="closeform('gm')">Close</button>
+            <div>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdxRlhwXWuWCmbROu7mQ2LxLTt9q_wvLKQGhC8j5WmyguFUsQ/viewform?embedded=true" width="80%" height="1388" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe></div>
+        </center>
+    </div>
+
+{% endblock main %}
+    
+{% block scripts %}
+    <script type="text/javascript">
+        /* Open when someone clicks on the span element */
+        function openform(slug) {
+            console.log($("#"+slug));
+            $("#"+slug)[0].style.width = "100%";
+            $("#hamburgerDhairya")[0].style.visibility = "hidden";
+        }
+
+        /* Close when someone clicks on the "x" symbol inside the overlay */
+        function closeform(slug) {
+            $("#"+slug)[0].style.width = "0%";
+            $("#hamburgerDhairya")[0].style.visibility = "visible";
+        }
+
+
+    </script>
+    <script type="text/javascript">
+    $(".card").mouseenter((e)=>{
+        console.log(e.currentTarget);
+
+        // e.currentTarget
+        let element = e.currentTarget;
+        // console.log(element);
+        element.style['transform'] = 'rotatey(-360deg)';
+        element.style['-webkit-transform'] = 'rotatey(-360deg)';
+        element.style.boxShadow = "0 30px 30px #ccc";
+        // element.
+    }).mouseleave((e)=>{
+        let element = e.currentTarget;
+        // console.log(element);
+        element.style['transform'] = 'rotatey(360deg)';
+        element.style['-webkit-transform'] = 'rotatey(360deg)';
+        element.style.boxShadow = "0 0 0 #ccc";
+    });
+        // Wrap every .img in a div
+        // 1. For all items with class .img...
+        // 2. Wrap them in a div
+        // $(".img").wrap('<div class="alt-wrap" />');
+
+        // Add alt text after each .img
+        // 1. For all items with class .img...
+        // 2. Run a function for each of them...
+        // 3. To add a p element after it
+        // 5. Containing that element's alt text
+        // $(".img").each(function() {
+        //     $(this).after('<p class="alt" onclick="openform()" >' + $(this).attr('alt') + '</p>');
+        // })
+        $(".img").click((e)=>{openform($(e.currentTarget).attr('alt'));});
+    </script>
+{% endblock scripts %}
+    

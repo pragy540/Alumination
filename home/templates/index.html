@@ -1,0 +1,205 @@
+{% extends "nav.html" %}
+{% load static %}
+
+{% block head %}
+	<title>Alumination</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+	<meta property="og:title" content="Alumination-Discovering Your Divine Deck" />
+    <meta property="og:type" content="website" />
+	<meta name="google-site-verification" content="pAOhR9tZz4ABaE4lfg5ciJqUOAhyIMUAi-P0CH5hCUY" />
+    <meta property="og:url" content="https://alumination.sarc-iitb.org/" />
+    <meta property="og:description" content="Alumination, the flagship event of Student Alumni Relatins Cell"/>   
+	<style>
+		
+		body{
+			background-color: black; 
+			overflow: scroll;
+			scroll-behavior: smooth;
+			scrollbar-face-color: aliceblue;
+		}
+		a {
+			color: #8ff;
+		}
+
+		#menu {
+			position: absolute;
+			bottom: 20px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.element {
+			width: 120px;
+			height: 160px;
+			box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
+			border: 1px solid rgba(127, 255, 255, 0.25);
+			text-align: center;
+			line-height: normal;
+			cursor: default;
+		}
+
+		.element:hover {
+			box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
+			border: 1px solid rgba(127, 255, 255, 0.75);
+		}
+
+
+		.element .front_image {
+			/* position: absolute; */
+			/* bottom: 15px; */
+			width: 100%;
+			left: 0px;
+			right: 0px;
+			/* font-size: 12px; */
+		}
+
+		button {
+			color: rgba(127, 255, 255, 0.75);
+			background: transparent;
+			outline: 1px solid rgba(127, 255, 255, 0.75);
+			border: 0px;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: rgba(0, 255, 255, 0.5);
+		}
+
+		button:active {
+			color: #000000;
+			background-color: rgba(0, 255, 255, 0.75);
+		}
+
+		.containerd {
+			position: absolute;
+			width: 80% !important;
+			/* overflow: visible !important; */
+		}
+
+		#logo_container {
+			left: 5% !important;
+
+			/* overflow: visible !important; */
+			/* bottom: 10%; */
+		}
+
+		canvas {
+			width: 90vw !important;
+		}
+
+		.three-js-wrapper {
+			position: relative;
+			width: 90vw;
+			margin: auto;
+		}
+
+		.demo-wrapper {
+			position: relative;
+		}
+
+		.dummy {
+			height: 100vh;
+		}
+
+		.dummy_nav {
+			height: 100px;
+		}
+
+		img {
+			position: absolute;
+			filter: drop-shadow(0, 0, 12px, white);
+		}
+
+		#blurred {
+			filter: blur(12px) brightness(100%);
+		}
+
+		.alumination_logo_svg {
+			margin: 2% auto 2% auto;
+			align-items: center;
+			width: 10%;
+			position: relative;
+			display: block;
+		}
+		.alumination_logo_svg img{
+			width: 100%;
+		}
+		.contains {
+			{% comment %} height: 100vh; {% endcomment %}
+			/* position: relative; */
+			/* border: 3px solid green;  */
+		}
+
+		.center {
+			position: relative;
+			vertical-align: middle;
+			width: 100%;
+		}
+		h1{
+			font-size: 2.2em;
+		}
+		.about{
+			color: #315969;
+			margin: 5%;
+			font-size: 1.7em;
+			line-height: 120%;
+		}
+		body{
+			background: white;
+			overflow-x: hidden !important;
+		}
+		/* .about h1{
+
+		} */
+		@media only screen and (hover: none) and (pointer: fine){
+			.three-js-wrapper{
+				height: 60vh;
+			}
+			#back_container{
+				height: 100% !important;
+			}
+		}
+		{% comment %} body{
+			background: #000000 !important;
+		} {% endcomment %}
+	</style>
+{% endblock head %}
+	
+
+{% block main %}
+		<div class="three-js-wrapper" style="backgrou;">
+			{% comment %} <div class="containerd" id="logo_container"></div> {% endcomment %}
+			<div class="containerd" id="back_container"></div>
+			<div class="dummy"></div>
+		</div>
+		<div class="about-us">
+			<div class="about">
+				<h1 class="about-head">About Alumination</h1>
+				<p class="about-content">Alumination, the flagship event of SARC sparkles brilliantly, intricately embedded on its tiara. The most opportune and the much-coveted two-day fest serves as an expedient medium to promote conducive student-alumni interactions and provide deep foresight into your malleable future. Under the guiding roof of the accomplished alumni inside SARC’s dojo, exploit the opportunity to get enlightened on a spectrum of topics spanning Career guidance, Corporate exposure, Life Learning, and Motivational Talks.</p>
+			</div>
+		</div>
+{% endblock main %}
+	
+{% block scripts %}
+	<script>
+		function is_touch_device1() {
+			return 'ontouchstart' in window;
+		}
+		function configure(){
+			$(".containerd")[0].style.height = "100%";
+			$("#back_container > div")[0].style.height = "100%";
+		}
+		$(document).ready(function() {
+			if(is_touch_device1()){
+				console.log("This is Touchscreen");
+				$(".three-js-wrapper")[0].style.height = "60vh";
+				configure();
+			}
+		});
+	</script>
+	<script type="module" src="{% static 'js/alumination_logo.js' %}"></script>
+	<script type="module" src="{% static 'js/alumination_background.js' %}"></script>
+{% endblock scripts %}

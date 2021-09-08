@@ -1,0 +1,116 @@
+body {
+    background-color: #222222;
+    background: repeating-linear-gradient(45deg, #2b2b2b 0%, #2b2b2b 20%, #222222 0%, #222222 50%) 0 / 15px 15px;
+  }
+  
+#alumination_loader_sreyashi {
+    width: 100%;
+    margin-left: 40%;
+    margin-top: 42vh;
+}
+  
+  
+  /*Neon*/
+  
+  #blurred{
+    animation: animate2 2s ease-in-out infinite alternate;
+    -webkit-animation: animate2 2s ease-in-out infinite alternate;
+  }
+
+  #blurred1{
+    animation: animate3 2s ease-in-out infinite alternate;
+    -webkit-animation: animate3 2s ease-in-out infinite alternate;
+  } 
+
+  #blurred2{
+    animation: animate4 2s ease-in-out infinite alternate;
+    -webkit-animation: animate4 2s ease-in-out infinite alternate;
+  } 
+   @keyframes animate2
+  {
+    frpm
+    {
+      opacity: 0.3;
+      filter: blur(1px);
+      /* width:20%;         */
+    }
+    to{
+        opacity: 1;
+        filter: drop-shadow(12px 12px 13px rgb(248, 245, 245));
+        /* width:20%;   */
+    }
+  }
+  @-webkit-keyframes animate2
+  {
+    0%
+    {
+      opacity: 0.3;
+      filter: blur(1px);
+      /* width:20%;         */
+    }
+    to{
+        opacity: 1;
+        filter: drop-shadow(4px 4px 13px rgb(248, 245, 245));
+        /* width:20%;   */
+    }
+  } 
+   
+  @keyframes animate3
+  {
+    from{
+      filter: blur(1px) drop-shadow(1.5px 1.5px 9px rgb(216, 8, 8));
+      /* width:20%;      */
+    }
+    to{
+        filter: 
+        drop-shadow(4px 4px 13px rgb(248, 245, 245));
+        /* width:20%;   */
+    }
+  }
+  @-webkit-keyframes animate3
+  {
+    from{
+      filter:blur(1px) drop-shadow(1.5px 1.5px 9px rgb(216, 8, 8));
+      /* width:20%;         */
+    }
+    to{
+        filter: 
+        drop-shadow(4px 4px 13px rgb(248, 245, 245));
+        /* width:20%;   */
+    }
+  } 
+
+  @keyframes animate4
+  {
+    from
+    {
+      filter: drop-shadow(1.5px 1.5px 9px rgb(216, 8, 8));
+      /* width:20%;      */
+    }
+    to{
+        filter: 
+        drop-shadow(4px 4px 13px rgb(238, 15, 15));
+        /* width:20%;   */
+    }
+  }
+  @-webkit-keyframes animate4
+  {
+    from
+    {
+      filter: drop-shadow(1.5px 1.5px 9px rgb(216, 8, 8));
+      /* width:20%;         */
+    }
+    to{
+        filter: drop-shadow(4px 4px 13px rgb(238, 15, 15));
+        /* width:20%;   */
+    }
+  } 
+  body{
+    margin: 0;
+    background: black;
+    overflow: hidden;
+  }
+  img{
+    position: absolute;
+    width:30%;
+  }

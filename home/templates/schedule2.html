@@ -1,0 +1,922 @@
+{% extends "nav.html" %}
+{% load static %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/schedule_demo.css' %}" /> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/schedule copy.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/schedule.css' %}">
+    <style>
+        
+        .square{
+            box-shadow: 0px -10px 8px white;
+            width: 40px;
+            height: 80px;
+            position: absolute;
+            top: 50%;
+            size: 20px;
+            border-radius: 10px;
+            opacity: 0.75;
+            transform-origin: 50% 110%;
+            font-size: 5px;
+            color: white;
+            text-align: center;
+            text-orientation: mixed;  
+        
+        }
+        
+        .square-face{
+            width: 40px;
+            height: 80px;
+            top: 50%;
+            size: 20px;
+            border-radius: 10px;
+            transform-origin: 50% 110%;
+            font-size: 7px;
+            color: white;
+            text-align: center;
+            text-orientation: mixed;
+            position: initial;  
+        
+        }
+
+        .square-face-open{
+            width: 70px;
+            height: 100px;
+            top: 50%;
+            size: 20px;
+            border-radius: 10px;
+            transform-origin: 50% 110%;
+            font-size: 5px;
+            color: white;
+            text-align: center;
+            text-orientation: mixed; 
+            position: initial; 
+        }
+        
+
+        .demo-wrapper{
+            position: absolute;
+            top: 40%;
+            left: 48.5%;
+        }
+        .buttom{
+            transform-origin: 50% 110%;
+            font-size:20px;
+            margin: 10px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 20px;
+            position:absolute;
+            top:52%;
+            left: 47%;
+            background-color: red;
+            border-top-right-radius: 70px;
+            border-top-left-radius: 70px;
+            opacity: 75%;
+            z-index: 0;
+
+        }
+
+        .opener{
+            font-size:70px;
+            color: black !important;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 20px;
+            position:absolute;
+            top:52%;
+            left: 40.5%;
+            background-color: red;
+            border-radius: 200%;
+            opacity: 75%;
+            z-index: 0;
+        }
+
+        .opener-next{
+            font-size:40px;
+            color: !important;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 20px;
+            position:absolute;
+            left: 45%;
+            top: 50%;
+            background-color: red;
+            border-radius: 200%;
+            opacity: 75%;
+            z-index: 0;
+        }
+        
+        .power,.power1,.power2,.power0{
+            display: none;
+        }
+
+
+        .bg1{
+            width: 80px;
+            height: 110px;
+            position: absolute;
+            top: 50%;
+            size: 20px;
+            border-radius: 10px;
+            opacity: 0.8;
+            transform-origin: 50% 110%;
+            font-size: 6px;
+            color: white;
+            /* background-color: aqua !important; */
+            text-align: center;
+            text-orientation: mixed;
+            filter: blur(0.5px) !important; 
+        }
+
+        .bg2{
+            width: 80px;
+            height: 110px;
+            position: absolute;
+            top: 50%;
+            size: 20px;
+            opacity: 0.8;
+            border-radius: 10px;
+            font-size: 6px;
+            color: white;
+            text-align: center;
+            text-orientation: mixed;
+            z-index: 2;
+        }
+
+        .text1{
+         -ms-transform: rotate(90deg); /* IE 9 */
+         transform: rotate(90deg);
+         padding-top: 25%;
+         padding-bottom: 25%;
+         padding-right: 25%;
+         padding-left: 25%;
+        }
+
+        .text6{
+         -ms-transform: rotate(-90deg); /* IE 9 */
+         transform: rotate(-90deg);
+         padding-top: 25%;
+         padding-bottom: 25%;
+         padding-right: 25%;
+         padding-left: 25%;
+        }
+
+        .flip-card {
+        
+            perspective: 1000px;
+        }
+        
+        .flip-card-inner1 {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .centered {
+            position: absolute;
+            top: 8px;
+            text-align: center;
+            width: 100%;
+            padding: 0 4px;
+            font-size: 0.7em;
+        }
+
+        .top-left {
+            position: absolute;
+            top: 4px;
+        }
+
+        .flip-card-inner {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 10px;
+        }
+
+        .flip-card-inner {
+            transform: rotateY(-180deg);
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-back {
+            color: white;
+            transform: rotateY(180deg);
+            border-radius: 10px;
+            background-color: black;
+            font-size: 3.5px !important;
+        }
+        main{
+            height: 100%;
+        }
+        .xyz{
+            text-align: center;
+            padding-top: 85vh;
+        }
+        .top-left p{
+            padding: 2px 6px 0 6px;
+        }
+        .top-left h1{
+            font-weight: 800;
+            font-size: 1.1em;
+        }
+        @media only screen and (max-width: 1000px){
+            .demo-wrapper, .xyz{display: none;}
+            .square{
+                box-shadow: 0px -10px 8px white;
+                width: 75%;
+                margin: 10px auto;
+                height: 75vh;
+                top: 50%;
+                size: 20px;
+                position: relative;
+                border-radius: 10px;
+                opacity: 1;
+                transform-origin: 50% 110%;
+                font-size: 0.9em !important;
+		
+                color: white;
+                text-align: center;
+                text-orientation: mixed;  
+            }
+            .square img{
+                width: 100%;
+                height: 100%;
+            }
+            .flip-card-back {
+                font-size: 15px !important;
+            }
+            .rotated-state{
+                transform: rotateY(180deg);
+            }
+            .centered {
+                top: 30px;
+                font-size: 1em;
+                padding: 0;
+            }
+        }
+         .square:hover{
+            cursor: pointer;
+        }
+        .opener:hover, .buttom:hover, .buttom1:hover, .buttom2:hover, .opener-next:hover{
+            cursor: pointer !important;
+        }
+        @media only screen and (min-width: 1000px){
+            #eventsSchedule{display: none;}
+        }
+        span.close-button{
+            position: absolute;
+            top: -0.5px;
+            right: 6px;
+            height: 4px;
+            padding: 1px;
+            font-size: 2px;
+            font-weight: bold;
+            background: rgba(255,255,255,1);
+            color: black;
+        }
+        span.close-button:hover{
+            cursor: pointer;
+        }
+    </style>
+
+    
+{% endblock head %}
+    
+    
+  
+{% block main %}
+    <div class="demo-wrapper">
+        <div class="square a a2 square10 type10 power2" rel="type10" id="type10">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">FINANCE WORKSHOP
+                        <br/>
+                    20th DEC || 11:00-13:00</div>
+                </div>
+                <div class="flip-card-back">         
+                    <div class="top-left">
+                        <h1>WORKSHOPS</h1>
+                        <span class="close-button">close</span>
+                        <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="square a a2 square2 type2 power2" rel="type2" id="type2">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">
+                    COMING FULL CIRCLE
+                        <br/>
+                    20th DEC || 6:30-8:00
+                    </div>
+                </div>
+                <div class="flip-card-back">
+                     
+                   <div class="top-left">
+                    <h1>COMING FULL CIRCLE</h1>                        <span class="close-button">close</span>
+                    <p>Coming Full Circle(CFC) witnesses an extraordinary alumnus coming back to the institute and giving insights to the audience, thus enlightening them with his knowledge. <br>
+
+						This time we have with us MD and CEO of Bombay Stock exchange- Mr Ashish Chauhan. Best known as the father of modern financial derivatives in India, get ready to unlock and awaken your true potential and let inspiration fill your body and soul to compel you to chase your dreams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a a2 square3 type3 power2" rel="type3" id="type3">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">ANALYTICS WORKSHOP<br/>
+                    20th DEC || 14:00-16:00</div>
+                </div>
+                <div class="flip-card-back">
+                     
+                  <div class="top-left">
+                      
+                    <h1>WORKSHOPS</h1>                        <span class="close-button">close</span>
+                    <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a a2 square4 type4 power2" rel="type4" id="type4">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">GROUP MENTORING <br/>
+                    20th DEC || 11:00-17:00 </div>
+                </div>
+                <div class="flip-card-back">
+                     
+                    <div class="top-left">
+
+                    <h1>GROUP MENTORING</h1>                        <span class="close-button">close</span>
+                        <p>
+								“All it takes is a spark, and then shall spread the inferno.”
+								Alumination brings you ‘Group Mentoring’ —  a session to absorb and assimilate the key aspects of your field of interest with other equally driven and curious minds by your side. Having gathered along with your mentor, the discussion thereon aims to assist you in your decision-making process in the fields of analytics, consulting and finance. While the mentor, an expert in his respective domain, shares his insights on the sector in concern, the mentees can also discuss their simpler, more relatable viewpoints. Additionally, the unrestrained platform of the mentoring session allows for a healthy exchange of opinions and clarifications of mutual doubts. Register at the <a href="{% url 'register' %}" target="_blank">link</a></p>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a a2 square5 type5 power2" rel="type5" id="type5">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">SPEED MENTORING <br/>
+                    20th DEC || 11:00-17:00 </div>
+                </div>
+                <div class="flip-card-back">
+                    <div class="top-left">
+                        <h1>SPEED MENTORING</h1>                        <span class="close-button">close</span>
+                        <p>Speed Mentoring
+							“A mentor is someone who sees more talent and ability within you, and helps bring it out of you.” 
+							Speed mentoring provides you the opportunity of a lifetime to get mentored by professional life coaches.
+							This one to one session will accentuate a deeper self-understanding and will prove pivotal in unlocking 
+							your dormant potential. Register at the <a href="{% url 'register' %}" target="_blank">link</a> .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a type6 a1 square6 power1" rel="type6" id="type6">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">PRODUCT MANAGEMENT WORKSHOP
+                        <br/>
+                    19th DEC || 10:30-12:00</div>
+                </div>
+                <div class="flip-card-back">
+                     
+                    <div class="top-left">
+                        <h1>WORKSHOPS</h1>                        <span class="close-button">close</span>
+                        <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="square a type7 square7 a1 power1" rel="type7" id="type7">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">SPEED MENTORING
+                        <br/>
+                    19th DEC || 11:00-17:00</div>
+                </div>
+                <div class="flip-card-back">       
+                    <div class="top-left">
+                        <h1>SPEED MENTORING</h1>                        <span class="close-button">close</span>
+                        <p>Speed Mentoring
+							“A mentor is someone who sees more talent and ability within you, and helps bring it out of you.” 
+							Speed mentoring provides you the opportunity of a lifetime to get mentored by professional life coaches.
+							This one to one session will accentuate a deeper self-understanding and will prove pivotal in unlocking 
+							your dormant potential. Register at the <a href="{% url 'register' %}" target="_blank">link</a> .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="square a a1 square9 type9 power1" rel="type9" id="type9">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">TRADING WORKSHOP
+                        <br/>
+                    19th DEC || 14:00-15:30</div>
+                </div>
+                <div class="flip-card-back">         
+                    <div class="top-left">
+                        <h1>WORKSHOPS</h1>                        <span class="close-button">close</span>
+                        <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a a1 square11 type11 power1" rel="type11" id="type11">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">MENTALIST SESSION
+                        <br/>
+                    19th DEC || 18:30-20:00</div>
+                </div>
+                <div class="flip-card-back">   
+                    <div class="top-left">
+                        
+                    <h1>THE MENTALLIST SESSION</h1>                        <span class="close-button">close</span>
+                    <p>Illusion is perhaps the undiscovered realm of reality and our fate, a birth child of our vivid and incisive thought process.  While it may appear that we have been dealt cards at random in this unforeseeable  game of life; there might just be another dimension remaining to be explored.  We may believe that we hold domination on exclusively our own deck, but does our control really end there or just a closer peak can unravel a whole new pack of cards ? 
+
+                    If a clever card trick sets your mind ticking, you're in for a treat. Get ready to get your minds blown away by some master maneuvers. Catch a glimpse of the incredible art of mind reading and card tricks by joining us for this enthralling session for the first time in an online setting, by none other than an IIT (D) alumnus himself, mentalist, magician and musician, Mr. Divyansh Apurva.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a a1 square8 type8 power1" rel="type8" id="type8">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">GROUP MENTORING 
+                        <br/>
+                    19th DEC || 11:00-17:00</div>
+                </div>
+                <div class="flip-card-back">
+                     
+                    <div class="top-left">
+
+                    <h1>GROUP MENTORING</h1>                        <span class="close-button">close</span>
+                        <p>
+								“All it takes is a spark, and then shall spread the inferno.”
+								Alumination brings you ‘Group Mentoring’ —  a session to absorb and assimilate the key aspects of your field of interest with other equally driven and curious minds by your side. Having gathered along with your mentor, the discussion thereon aims to assist you in your decision-making process in the fields of analytics, consulting and finance. While the mentor, an expert in his respective domain, shares his insights on the sector in concern, the mentees can also discuss their simpler, more relatable viewpoints. Additionally, the unrestrained platform of the mentoring session allows for a healthy exchange of opinions and clarifications of mutual doubts. Register at the <a href="{% url 'register' %}" target="_blank">link</a></p>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="xyz">
+        <a class="buttom buttom2 power" data-micron="pop" > DAY 2 </a>
+        <a class="buttom buttom1 power" data-micron="pop" > DAY 1 </a>
+        <a class="opener main" data-micron="pop"> SCHEDULE </a>
+    </div>
+
+
+    <div id="eventsSchedule">
+        <h1 style="text-align: center; font-size: 2.2em">Day 1 || 19th December</h1>
+        <div class="square square11 type11"rel="T11"  id="T11">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">MENTALIST SESSION<br/>
+                    19th DEC || 18:30-20:00
+                    </div>
+                </div>
+                <div class="flip-card-back">   
+                    <div class="top-left">
+                    
+                    <h1>THE MENTALLIST SESSION</h1>
+                    <p>Illusion is perhaps the undiscovered realm of reality and our fate, a birth child of our vivid and incisive thought process.  While it may appear that we have been dealt cards at random in this unforeseeable  game of life; there might just be another dimension remaining to be explored.  We may believe that we hold domination on exclusively our own deck, but does our control really end there or just a closer peak can unravel a whole new pack of cards ? 
+
+                        If a clever card trick sets your mind ticking, you're in for a treat. Get ready to get your minds blown away by some master maneuvers. Catch a glimpse of the incredible art of mind reading and card tricks by joining us for this enthralling session for the first time in an online setting, by none other than an IIT (D) alumnus himself, mentalist, magician and musician, Mr. Divyansh Apurva.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square type6 square6"rel="T6"  id="T6">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">PRODUCT MANAGEMENT WORKSHOP
+                        <br/>
+                    19th DEC || 10:30-12:00</div>
+                </div>
+                <div class="flip-card-back">
+                     
+                    <div class="top-left">
+                        <h1>WORKSHOPS</h1>
+                        <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="square type7 square7"rel="T7"  id="T7">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">SPEED MENTORING <br/>
+                    19th DEC || 11:00-17:00</div>
+                </div>
+                <div class="flip-card-back">       
+                    <div class="top-left">
+                        <h1>SPEED MENTORING</h1>
+                        <p>Speed Mentoring
+							“A mentor is someone who sees more talent and ability within you, and helps bring it out of you.” 
+							Speed mentoring provides you the opportunity of a lifetime to get mentored by professional life coaches.
+							This one to one session will accentuate a deeper self-understanding and will prove pivotal in unlocking 
+							your dormant potential. Register at the <a href="{% url 'register' %}" target="_blank">link</a> .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square square8 type8"rel="T8"  id="T8">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">SPEED MENTORING <br/>
+                    19th DEC || 11:00-17:00</div>
+                </div>
+                <div class="flip-card-back">
+                    <div class="top-left">
+                        <h1>SPEED MENTORING</h1>
+                        <p>Speed Mentoring
+							“A mentor is someone who sees more talent and ability within you, and helps bring it out of you.” 
+							Speed mentoring provides you the opportunity of a lifetime to get mentored by professional life coaches.
+							This one to one session will accentuate a deeper self-understanding and will prove pivotal in unlocking 
+							your dormant potential. Register at the <a href="{% url 'register' %}" target="_blank">link</a> .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square square9 type9"rel="T9"  id="T9">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">TRADING WORKSHOP <br/>
+                    19th DEC || 14:00-15:30</div>
+                </div>
+                <div class="flip-card-back">         
+                    <div class="top-left">
+                        <h1>WORKSHOPS</h1>
+                        <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <h1 style="text-align: center; font-size: 2.2em">Day 2 || 20th December</h1>
+        <div class="square square10 type10"rel="T10"  id="T10">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">FINANCE WORKSHOP  <br/>
+                    20th DEC || 11:00-13:00</div>
+                </div>
+                <div class="flip-card-back">         
+                    <div class="top-left">
+                        <h1>WORKSHOPS</h1>
+                        <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+						topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+						comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+						skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="square square2 type2"rel="T2"  id="T2">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">COMING FULL CIRCLE
+                        <br/>
+                    20th DEC || 6:30-8:00</div>
+                </div>
+                <div class="flip-card-back">
+                     
+                    <div class="top-left">
+                    <h1>COMING FULL CIRCLE</h1>
+                    <p>Coming Full Circle(CFC) witnesses an extraordinary alumnus coming back to the institute and giving insights to the audience, thus enlightening them with his knowledge. <br>
+
+						This time we have with us MD and CEO of Bombay Stock exchange- Mr Ashish Chauhan. Best known as the father of modern financial derivatives in India, get ready to unlock and awaken your true potential and let inspiration fill your body and soul to compel you to chase your dreams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square square3 type3"rel="T3"  id="T3">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">ANALYTICS WORKSHOP <br/>
+                    20th DEC || 14:00-16:00</div>
+                </div>
+                <div class="flip-card-back">
+                     
+                  <div class="top-left">
+                    <h1>WORKSHOPS</h1>
+                    <p>SARC presents to IITB students, a series of conducive, certified workshops on a panorama of coveted 
+                    topics like consult, finance, analytics, and entrepreneurship. These lucrative workshops will 
+                    comprehensively infuse to the core, all foundational and critical concepts, helping you to meliorate your 
+                    skills and refine your competitive edge to prepare you for the forthcoming battles. Register at the <a href="{% url 'register' %}" target="_blank">link</a>.
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square a2 square4 type4"rel="T4"  id="T4">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">GROUP MENTORING <br/>
+                    20th DEC || 11:00-17:00 </div>
+                </div>
+                <div class="flip-card-back">
+                     
+                    <div class="top-left">
+                    <h1>GROUP MENTORING</h1>
+                        <p>
+								“All it takes is a spark, and then shall spread the inferno.”
+								Alumination brings you ‘Group Mentoring’ —  a session to absorb and assimilate the key aspects of your field of interest with other equally driven and curious minds by your side. Having gathered along with your mentor, the discussion thereon aims to assist you in your decision-making process in the fields of analytics, consulting and finance. While the mentor, an expert in his respective domain, shares his insights on the sector in concern, the mentees can also discuss their simpler, more relatable viewpoints. Additionally, the unrestrained platform of the mentoring session allows for a healthy exchange of opinions and clarifications of mutual doubts. Register at the <a href="{% url 'register' %}" target="_blank">link</a></p>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="square square5 type5"rel="T5"  id="T5">
+            <div class="flip-card-inner1">
+                <div class="flip-card-front">
+                    <img src="{% static 'Cards/Back.png' %}" class="square-face" alt="">
+                    <div class="centered">SPEED MENTORING <br/>
+                    20th DEC || 11:00-17:00 </div>
+                </div>
+                <div class="flip-card-back">
+                    <div class="top-left">
+                        <h1>SPEED MENTORING</h1>
+                        <p>Speed Mentoring
+							“A mentor is someone who sees more talent and ability within you, and helps bring it out of you.” 
+							Speed mentoring provides you the opportunity of a lifetime to get mentored by professional life coaches.
+							This one to one session will accentuate a deeper self-understanding and will prove pivotal in unlocking 
+							your dormant potential. Register at the <a href="{% url 'register' %}" target="_blank">link</a> .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+	</div>
+
+{% endblock main %}
+ 
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.main').click(function(){
+            $(".buttom").removeClass('power');
+            $(".main").removeClass('opener');
+            $(".main").addClass('opener-next');
+            $(".a2").addClass('power2');
+            $(".a1").addClass('power1');
+            $(".a0").addClass('power0');
+            });
+
+        $('.buttom2').click(function(){
+            $(".a2").removeClass('power2');
+            });
+
+        $('.buttom1').click(function(){
+            $(".a1").removeClass('power1');
+            });
+
+        $('.buttom0').click(function(){
+            $(".a0").removeClass('power0');
+            });
+    });
+    var cardopener = anime({
+            targets: '.buttom',
+            translateX: anime.stagger([-300, 300]),
+            //translateY: anime.stagger([-100,50]),
+
+            duration: 2000,
+            // loop: true,
+            autoplay: false,
+            // delay: anime.stagger(50)
+    });
+    var allSquares22 = document.querySelector(".main");
+   allSquares22.onclick=cardopener.play;
+   
+    var cardstagger2 = anime({
+        targets: '.a2',
+        translateX: -300,
+        translateY: 0,
+        // translateY: anime.stagger([50, 100 ,50]),
+        rotate: {
+            value: anime.stagger([-75, 105])
+        },
+        scale: 3.2,
+        duration: 2000,
+        // loop: true,
+        autoplay: false,
+    });
+    var allSquares2 = document.querySelector(".buttom2");
+    allSquares2.onclick=cardstagger2.play;
+    
+    var cardstagger1 = anime({
+        targets: '.a1',
+        translateX: 300,
+        translateY: 0,
+        rotate: {
+            value: anime.stagger([-75, 75])
+        },
+        scale: 3.2,
+        duration: 2000,
+        // loop: true,
+        autoplay: false,
+        // delay: anime.stagger(50)
+    });
+    var allSquares1 = document.querySelector(".buttom1");
+    allSquares1.onclick=cardstagger1.play;
+
+   function BackToNormal(id,time){
+        $('#'+id).siblings().removeClass('bg1');
+        $('#'+id).siblings().removeClass('bg2');
+        $('#'+id).removeClass('bg1');
+        $('#'+id).removeClass('bg2');
+        $('#'+id).removeClass('flip-card');
+        $('#'+id).addClass('square');
+        $('#'+id).siblings().addClass('square');
+        $('#'+id).siblings().children().removeClass('flip-card-inner');
+        $('#'+id).siblings().children().addClass('flip-card-inner1');
+        $('#'+id).children().removeClass('flip-card-inner'); 
+        $('#'+id).children().addClass('flip-card-inner1'); 
+        $('#'+id).siblings().removeClass('flip-card');
+        var id1;
+        id1 = $(".face");
+        id1.removeClass('square-face-open');
+        id1.addClass('square-face');
+        id1.removeClass('face');
+                
+        let cardstagger5 = anime({
+                    targets: '.a2',
+                    translateX: -300,
+                    translateY: 0,
+                    rotate: {
+                        value: anime.stagger([-75, 105])
+                    },
+                    scale: 3.2,
+                    duration: time,
+                    // loop: true,
+                    autoplay: true,
+                    // delay: anime.stagger(50)
+        });
+
+        let cardstagger4 = anime({
+                    targets: '.a1',
+                    translateX: 300,
+                    translateY: 0,
+                    rotate: {
+                        value: anime.stagger([-75, 75])
+                    },
+                    scale: 3.2,
+                    duration: time,
+                    // loop: true,
+                    autoplay: true,
+                    // delay: anime.stagger(50)
+        });    
+        cardopener.play();           
+    }
+    function Inflate(id,time,d){
+        $('#'+id).removeClass('square');
+                $('#'+id).addClass('bg2');
+                $('#'+id).addClass('flip-card');
+                $('#'+id).removeClass('bg1');
+
+                $('#'+id).siblings().removeClass('square');
+                $('#'+id).siblings().addClass('bg1');
+                $('#'+id).siblings().removeClass('flip-card');
+                $('#'+id).siblings().children().removeClass('flip-card-inner');
+                $('#'+id).siblings().children().addClass('flip-card-inner1');
+                $('#'+id).siblings().removeClass('bg2');
+                $('#'+id).children().removeClass('flip-card-inner1'); 
+                $('#'+id).children().addClass('flip-card-inner');
+                $('#'+id).children().children().find("img").removeClass('square-face');
+                $('#'+id).children().children().find("img").addClass('square-face-open'); 
+                $('#'+id).children().children().find("img").addClass('face');     
+
+                let animateAll1 = anime({
+                    targets: "."+id,
+                    rotate: {
+                        value: 360,
+                        duration: time,                                                                                             
+                        easing: 'easeInOutSine'
+                    },
+                    scale: {
+                        value: 7,
+                        duration: time-d,
+                        delay: d,
+                        easing: 'easeInOutQuart'
+                    },
+                    autoplay: true,
+                    translateX: 0,
+                    translateY: "65%",
+                });
+    }
+    $(document).ready(function(){ 
+        $('.a').click(function(){
+            var id;
+            id = $(this).attr('rel');
+            if($('#'+id).hasClass('bg1')||$('#'+id).hasClass('bg2')){
+               BackToNormal(id,2000);
+            }
+            else {
+                Inflate(id,1000,500);
+            }
+        });
+        for (let index = 1; index < 13; index++) {
+            let id = "#T"+index;
+            $(id).click(function(e) {
+                let element = e.currentTarget.childNodes[1];
+                
+                // element.classList = element.classList + "rotated-state"
+                if(!$(element).hasClass("rotated-state")){
+                    $(element).addClass("rotated-state")
+                    // element.style.transform = "rotatey(180deg)";
+                }
+                else{
+                    $(element).removeClass("rotated-state")
+                    // element.style.transform = "rotatey(180deg)";
+                }
+            })
+        }
+    });
+</script>
+{% endblock scripts %}
+	
+</body>
